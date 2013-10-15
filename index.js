@@ -32,7 +32,7 @@ angular
     load the folders from the resources tree once (but setup a radio)
     
   */
-  .service('$containerTreeData', function($q, $rootScope, $containerRadio){
+  .service('$containerTreeData', function($q, $rootScope, $safeApply){
     var containers = {};
 
     function load($scope, selector){
@@ -40,9 +40,13 @@ angular
         var deferred = $q.defer();
 
         $rootScope.warehouse(selector + ':tree(folder)').ship(function(root){
-          $containerRadio($scope, root);
-          deferred.resolve(root);
-        })
+          $safeApply($scope, function(){
+            deferred.resolve(root);
+          })
+          
+        })  
+        
+        
 
         containers[selector] = deferred.promise;
       }
