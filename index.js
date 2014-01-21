@@ -4,9 +4,11 @@
   
 */
 
+module.exports = 'digger.utils';
+
 angular
   .module('digger.utils', [
-    'digger.radio'
+    
   ])
 
   .factory('$safeApply', [function($rootScope) {
